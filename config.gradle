@@ -1,0 +1,15 @@
+ext {
+    android = [
+            applicationId: "com.github.tvbox.osc",
+    ]
+    signature = [
+            storeFile    : "tvbox.jks",
+            storePassword: "helloworld",
+            keyAlias     : "tvbox",
+            keyPassword  : "helloworld",
+    ]
+    versions = [
+            versionCode: 1625,
+            versionName: "1.6.25"
+    ]
+}
