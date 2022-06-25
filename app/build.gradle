@@ -4,12 +4,10 @@ android {
     compileSdkVersion 30
 
     defaultConfig {
-        applicationId 'com.github.tvbox.osc'
+        applicationId rootProject.ext.android['applicationId']
         minSdkVersion 16
-        targetSdkVersion 26
-        versionCode 1
-        versionName '1.0.0'
-        multiDexEnabled true
+        versionCode rootProject.ext.versions['versionCode']
+        versionName rootProject.ext.versions['versionName']
         //设置room的Schema的位置
         javaCompileOptions {
             annotationProcessorOptions {
@@ -22,8 +20,23 @@ android {
         exclude 'META-INF/DEPENDENCIES'
     }
 
+    signingConfigs {
+
+        release {
+            storeFile file(rootProject.ext.signature["storeFile"])
+            storePassword rootProject.ext.signature["storePassword"]
+            keyAlias rootProject.ext.signature["keyAlias"]
+            keyPassword rootProject.ext.signature["keyPassword"]
+        }
+    }
+
+
+
     buildTypes {
+
+
         debug {
+            signingConfig signingConfigs.release
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
             minifyEnabled false
 
@@ -32,11 +45,21 @@ android {
             }
         }
         release {
+            signingConfig signingConfigs.release
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
             minifyEnabled true
 
             ndk {
                 abiFilters 'armeabi-v7a'
+            }
+        }
+
+        android.applicationVariants.all { variant ->
+            variant.outputs.all { output ->
+                def build_time = releaseTime()
+                def file_version_name = "V${rootProject.ext.versions['versionCode']}"
+                outputFileName = "Tvbox_${file_version_name}_${build_time}.apk"
+                println("outputFileName：" + outputFileName)
             }
         }
     }
@@ -56,6 +79,7 @@ android {
         additionalParameters += '--set-max-idx-number=48000'
         additionalParameters += '--minimal-main-dex'
     }
+
 }
 
 dependencies {
