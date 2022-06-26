@@ -8,6 +8,7 @@ android {
         minSdkVersion 16
         versionCode rootProject.ext.versions['versionCode']
         versionName rootProject.ext.versions['versionName']
+        multiDexEnabled true
         //设置room的Schema的位置
         javaCompileOptions {
             annotationProcessorOptions {

@@ -31,5 +31,13 @@ task clean(type: Delete) {
 }
 
 static final def releaseTime() {
-    return new Date().format("yyyyMMddHHmm", TimeZone.getTimeZone("Asia/Shanghai"))
+    return new Date().format("HHmm", TimeZone.getTimeZone("Asia/Shanghai"))
+}
+
+static final def versionTime() {
+    return new Date().format("yyyyMMdd", TimeZone.getTimeZone("Asia/Shanghai")).toInteger()
+}
+
+static final def versionName() {
+    return new Date().format("yyyyMMdd", TimeZone.getTimeZone("Asia/Shanghai")).toString().join(".")
 }

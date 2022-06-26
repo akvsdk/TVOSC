@@ -9,7 +9,7 @@ ext {
             keyPassword  : "helloworld",
     ]
     versions = [
-            versionCode: 1625,
-            versionName: "1.6.25"
+            versionCode: versionTime(),
+            versionName: versionName()
     ]
 }
